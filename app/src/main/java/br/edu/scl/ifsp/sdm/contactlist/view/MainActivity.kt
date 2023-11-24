@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import br.edu.scl.ifsp.sdm.contactlist.R
+import br.edu.scl.ifsp.sdm.contactlist.adapter.ContactAdapter
 import br.edu.scl.ifsp.sdm.contactlist.databinding.ActivityMainBinding
 import br.edu.scl.ifsp.sdm.contactlist.model.Constant.EXTRA_CONTACT
 import br.edu.scl.ifsp.sdm.contactlist.model.Contact
@@ -22,11 +23,8 @@ class MainActivity : AppCompatActivity() {
     private val contactList: MutableList<Contact> = mutableListOf()
 
     //Adapter
-    private val contactAdapter: ArrayAdapter<String> by lazy {
-        ArrayAdapter(
-            this,
-            android.R.layout.simple_expandable_list_item_1,
-            contactList.map { it.toString() })
+    private val contactAdapter: ContactAdapter by lazy {
+        ContactAdapter(this,contactList)
     }
 
     private lateinit var carl: ActivityResultLauncher<Intent>
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                         } else {//Adiciona na lista
                             contactList.add(contact)
                             //*Quando usa o add nem precisaria do notify do adapter
-                            contactAdapter.add(contact.toString())
+//                            contactAdapter.add(contact.toString())
                         }
                         //Notifica o adapter que houve alteracao
                         contactAdapter.notifyDataSetChanged()
